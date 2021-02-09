@@ -1,19 +1,26 @@
 package com.example.controllers;
 
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BuildResponse {
-    public Map<String, Object> successResponseString(String msg) {
 
-        Map<String, Object> rtn = new LinkedHashMap<>();
+    public ResponseEntity<?> successResponseString(@RequestBody String msg, Integer code) {
 
-        rtn.put("status", "success");
-        rtn.put("message", msg);
-        return rtn;
+        Map<String, Object> result = new LinkedHashMap<>();
+
+        result.put("status", "success");
+        result.put("message", msg);
+
+        HttpStatus http_status = HttpStatus.OK;
+        if (201 == code){
+            http_status = HttpStatus.CREATED;
+        }
+        return new ResponseEntity<>(result, http_status);
     }
 
 }

@@ -13,19 +13,18 @@ public class  EmployeeController{
     @Autowired
     EmployeeService employeeService;
 
-
     BuildResponse buildResponse = new BuildResponse();
 
     @RequestMapping(value = "/employee/all", method=RequestMethod.GET)
     public List<Employee> allEmployee() {
         try {
             if (0 == employeeService.getAllEmployee().size()){
-                throw new CustomException("Not found employee", 404, "error");
+                throw new CustomException("Not found employee", 404);
             }
             return employeeService.getAllEmployee();
 
         } catch (Exception e) {
-            throw new CustomException(e.getMessage(), 500, "error");
+            throw new CustomException(e.getMessage(), 500);
         }
     }
 
@@ -33,9 +32,9 @@ public class  EmployeeController{
     public Object insertEmployee(@RequestBody Employee employee) {
         try {
             Integer id = employeeService.insertEmployee(employee);
-            throw new CustomException("Insert employee successful id : "+ id, 201, "success");
+            return  buildResponse.successResponseString("Insert employee successful id : "+ id, 201);
         } catch (Exception e) {
-            throw new CustomException(e.getMessage(), 500, "error");
+            throw new CustomException(e.getMessage(), 500);
         }
     }
 
@@ -43,13 +42,13 @@ public class  EmployeeController{
     public Object deleteEmployee(@RequestBody Employee employee){
         try {
                 if (employee.getId() == null || employee.getId() == 0){
-                    throw new CustomException("Empty employee id", 404, "error");
+                    throw new CustomException("Empty employee id", 404);
                 }
                 employeeService.deleteEmployee(employee.getId());
-                throw new CustomException("Delete employee successful id : "+ employee.getId(), 200, "success");
+            return  buildResponse.successResponseString("Delete employee successful id : "+ employee.getId(), 200);
 
         } catch (Exception e) {
-            throw new CustomException(e.getMessage(), 500, "error");
+            throw new CustomException(e.getMessage(), 500);
         }
     }
 
@@ -57,17 +56,17 @@ public class  EmployeeController{
     public Object updateEmployee(@RequestBody Employee employee) {
         try {
             if (employee.getId() == null || employee.getId() == 0){
-                throw new CustomException("Empty employee id", 404, "error");
+                throw new CustomException("Empty employee id", 404);
             }
             if (employeeService.existsEmployee(employee.getId())){
                 Integer id = employeeService.updateEmployee(employee);
-                throw new CustomException("Update employee successful id : "+ id, 200, "success");
+                return  buildResponse.successResponseString("Update employee successful id : "+ id, 200);
             }else{
-                throw new CustomException("Not found employee", 404, "error");
+                throw new CustomException("Not found employee", 404);
             }
 
         } catch (Exception e) {
-            throw new CustomException(e.getMessage(), 500, "error");
+            throw new CustomException(e.getMessage(), 500);
         }
     }
 
@@ -75,13 +74,13 @@ public class  EmployeeController{
     public Object searchEmployeeById(@RequestBody Employee employee) {
         try {
             if (employee.getId() == null || employee.getId() == 0){
-                throw new CustomException("Empty employee id", 404, "error");
+                throw new CustomException("Empty employee id", 404);
             }
 
             return employeeService.searchEmployeeById(employee.getId());
 
         } catch (Exception e) {
-            throw new CustomException(e.getMessage(), 500, "error");
+            throw new CustomException(e.getMessage(), 500);
         }
     }
 
@@ -89,14 +88,14 @@ public class  EmployeeController{
     public Object searchEmployeeByName(@RequestBody Employee employee) {
         try {
             if (employee.getName() == null || employee.getName() == ""){
-                throw new CustomException("Empty employee name", 404, "error");
+                throw new CustomException("Empty employee name", 404);
             }
             if (0 == employeeService.searchEmployeeByName(employee.getName()).size()){
-                throw new CustomException("Not found employee", 404, "error");
+                throw new CustomException("Not found employee", 404);
             }
             return employeeService.searchEmployeeByName(employee.getName());
         } catch (Exception e) {
-            throw new CustomException(e.getMessage(), 500, "error");
+            throw new CustomException(e.getMessage(), 500);
         }
     }
 
@@ -104,14 +103,14 @@ public class  EmployeeController{
     public Object searchEmployeeByPhone(@RequestBody Employee employee) {
         try {
             if (employee.getPhone() == null || employee.getPhone() == ""){
-                throw new CustomException("Empty employee phone", 404, "error");
+                throw new CustomException("Empty employee phone", 404);
             }
             if (0 == employeeService.searchEmployeeByPhone(employee.getPhone()).size()){
-                throw new CustomException("Not found employee", 404, "error");
+                throw new CustomException("Not found employee", 404);
             }
             return employeeService.searchEmployeeByPhone(employee.getPhone());
         } catch (Exception e) {
-            throw new CustomException(e.getMessage(), 500, "error");
+            throw new CustomException(e.getMessage(), 500);
         }
     }
 
@@ -119,14 +118,14 @@ public class  EmployeeController{
     public Object searchEmployeeByEmail(@RequestBody Employee employee) {
         try {
             if (employee.getEmail() == null || employee.getEmail() == ""){
-                throw new CustomException("Empty employee email", 404, "error");
+                throw new CustomException("Empty employee email", 404);
             }
             if (0 == employeeService.searchEmployeeByEmail(employee.getEmail()).size()){
-                throw new CustomException("Not found employee", 404, "error");
+                throw new CustomException("Not found employee", 404);
             }
             return employeeService.searchEmployeeByEmail(employee.getEmail());
         } catch (Exception e) {
-            throw new CustomException(e.getMessage(), 500, "error");
+            throw new CustomException(e.getMessage(), 500);
         }
     }
 

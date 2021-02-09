@@ -10,11 +10,10 @@ public class CustomException extends RuntimeException {
         super();
     }
 
-    public CustomException(String customMessage, Integer customCode, String customStatus){
+    public CustomException(String customMessage, Integer customCode){
         super(new Exception(customMessage));
         this.customMessage = customMessage;
         this.customCode = customCode;
-        this.customStatus = customStatus;
     }
 
     public String getCustomMessage() {
@@ -24,10 +23,5 @@ public class CustomException extends RuntimeException {
     public Integer getCustomCode() {
         return customCode;
     }
-
-    public String getCustomStatus() {
-        return customStatus;
-    }
-
 
 }

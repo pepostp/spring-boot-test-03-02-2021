@@ -32,7 +32,7 @@ public class  EmployeeController{
     public Object insertEmployee(@RequestBody Employee employee) {
         try {
             Integer id = employeeService.insertEmployee(employee);
-            return  buildResponse.successResponseString("Insert employee successful id : "+ id, 201);
+            return  buildResponse.successResponseBuilder("Insert employee successful id : "+ id, 201);
         } catch (Exception e) {
             throw new CustomException(e.getMessage(), 500);
         }
@@ -45,7 +45,7 @@ public class  EmployeeController{
                     throw new CustomException("Empty employee id", 404);
                 }
                 employeeService.deleteEmployee(employee.getId());
-            return  buildResponse.successResponseString("Delete employee successful id : "+ employee.getId(), 200);
+            return  buildResponse.successResponseBuilder("Delete employee successful id : "+ employee.getId(), 200);
 
         } catch (Exception e) {
             throw new CustomException(e.getMessage(), 500);
@@ -60,7 +60,7 @@ public class  EmployeeController{
             }
             if (employeeService.existsEmployee(employee.getId())){
                 Integer id = employeeService.updateEmployee(employee);
-                return  buildResponse.successResponseString("Update employee successful id : "+ id, 200);
+                return  buildResponse.successResponseBuilder("Update employee successful id : "+ id, 200);
             }else{
                 throw new CustomException("Not found employee", 404);
             }
